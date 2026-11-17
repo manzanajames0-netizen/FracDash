@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FracDash — A Mango Grove Fraction Adventure</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- =============== MAIN MENU =============== -->
+  <div class="screen active" id="screen-menu">
+    <div class="chalk-texture"></div>
+    <div class="color-waves" id="color-waves"></div>
+    <div class="menu-glow"></div>
+    <div id="stars-layer"></div>
+    <div id="float-frac-layer"></div>
+    <div id="type-deco-layer"></div>
+    <div class="mango-strip" id="mango-strip"></div>
+
+    <div class="game-banner">
+      <span class="banner-icon" id="banner-icon">🥭</span>
+      <div class="banner-text">
+        <h1 class="banner-title">FracDash</h1>
+        <p class="banner-tag">A Mango Grove Fraction Adventure</p>
+      </div>
+      <span class="banner-icon flip" aria-hidden="true">🥭</span>
+    </div>
+
+    <div class="streak-badge">🔥 <span id="streak-count">0</span> day streak</div>
+    <div class="coin-badge">🪙 <span id="coin-count">0</span></div>
+    <div class="heart-badge" id="heart-badge-menu">
+      <span id="heart-badge-icons"></span>
+      <small id="heart-badge-timer"></small>
+    </div>
+
+    <div class="menu-card">
+      <div class="menu-card-deco">✦ ✧ ✦</div>
+      <div class="menu-buttons">
+        <button class="btn btn-primary" id="btn-play">🎮 MINIGAMES</button>
+        <button class="btn btn-story" id="btn-story">📖 STORY MODE</button>
+        <button class="btn" id="btn-mechanics">❓ HOW TO PLAY</button>
+        <button class="btn" id="btn-knowledge">📘 KNOWLEDGE</button>
+        <button class="btn" id="btn-credits">✦ CREDITS</button>
+        <button class="btn btn-danger" id="btn-exit">✕ EXIT</button>
+      </div>
+    </div>
+
+    <div class="exp-widget">
+      <div class="exp-top">
+        <span class="exp-lvl">Lv <span id="lvl-num">1</span></span>
+        <span class="exp-mango" id="exp-mango">🥭</span>
+      </div>
+      <div class="exp-track"><div class="exp-fill" id="exp-fill"></div></div>
+      <div class="exp-text"><span id="exp-current">0</span> / <span id="exp-needed">500</span> EXP</div>
+    </div>
+  </div>
+
+  <!-- =============== PLAY: choose game =============== -->
+  <div class="screen" id="screen-play">
+    <div class="hub-world" aria-hidden="true"></div>
+    <div class="subscreen">
+      <div class="subscreen-header">
+        <button class="back-btn" data-back="screen-menu">← Back</button>
+        <h2>Choose Your Minigame</h2>
+      </div>
+      <p class="hub-sub">Step 1: pick a game. Step 2: pick a level. Every game helps you practise fractions in a different way. Tap <b>? How to play</b> on a card if you want to learn first.</p>
+      <div class="game-grid">
+
+        <!-- Fraction Match: classroom chalkboard -->
+        <article class="game-card gc-match" data-card="match">
+          <div class="gc-scene" aria-hidden="true">
+            <div class="gcm-board">
+              <span class="gcm-chalk gcm-f1"><i>3</i><b></b><i>4</i></span>
+              <span class="gcm-chalk gcm-f2"><i>1</i><b></b><i>2</i></span>
+              <span class="gcm-chalk gcm-f3"><i>5</i><b></b><i>8</i></span>
+              <span class="gcm-chalk gcm-sym gcm-s1">+</span>
+              <span class="gcm-chalk gcm-sym gcm-s2">=</span>
+              <span class="gcm-chalk gcm-sym gcm-s3">÷</span>
+            </div>
+            <div class="gcm-choices"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+            <div class="gcm-clock"><i></i></div>
+            <div class="gcm-timer"><i></i></div>
+          </div>
+          <div class="gc-body">
+            <h3><span class="gc-ico">🃏</span> Fraction Match</h3>
+            <p>Read the question, then tap the correct answer (A–D). Your 4 classmates answer too!</p>
+            <div class="gc-tags"><span>👆 Tap</span><span>⏱ Timer</span></div>
+            <div class="gc-btnrow"><button class="btn btn-leaf gc-play" data-game="match">▶ Play</button><button class="btn btn-outline gc-help" data-help-game="match" aria-label="How to play">? How to play</button></div>
+          </div>
+        </article>
+
+        <!-- Mango Falling: countryside orchard -->
+        <article class="game-card gc-mango" data-card="mango">
+          <div class="gc-scene gcg-scene" aria-hidden="true">
+            <div class="gcg-bg"></div>
+            <div class="gcg-cloud c1"></div><div class="gcg-cloud c2"></div>
+            <div class="gcg-glow"></div>
+            <div class="gcg-tree"></div>
+            <div class="gcg-mango m1"></div><div class="gcg-mango m2"></div><div class="gcg-mango m3"></div>
+            <div class="gcg-fleaf f1"></div><div class="gcg-fleaf f2"></div><div class="gcg-fleaf f3"></div>
+            <div class="gcg-fly">🦋</div>
+            <div class="gcg-farmer"></div>
+            <span class="gcg-pop">+1</span>
+          </div>
+          <div class="gc-body">
+            <h3><span class="gc-ico">🥭</span> Mango Falling</h3>
+            <p>Mangoes fall with answers on them. Move the basket under the mango with the correct answer.</p>
+            <div class="gc-tags"><span>← → Move</span><span>⏱ Timer</span></div>
+            <div class="gc-btnrow"><button class="btn btn-leaf gc-play" data-game="mango">▶ Play</button><button class="btn btn-outline gc-help" data-help-game="mango" aria-label="How to play">? How to play</button></div>
+          </div>
+        </article>
+
+        <!-- Fishtions: ocean -->
+        <article class="game-card gc-fish" data-card="fish">
+          <div class="gc-scene" aria-hidden="true">
+            <div class="gcf-sky"><span class="gcf-sun"></span></div>
+            <div class="gcf-waves"><i></i><i></i></div>
+            <div class="gcf-rays"></div>
+            <div class="gcf-fish f1"></div>
+            <div class="gcf-fish f2"></div>
+            <div class="gcf-fish f3"></div>
+            <div class="gcf-bub b1"></div><div class="gcf-bub b2"></div><div class="gcf-bub b3"></div><div class="gcf-bub b4"></div>
+            <div class="gcf-line"><span class="gcf-hook"></span></div>
+            <div class="gcf-weed w1"></div><div class="gcf-weed w2"></div>
+            <div class="gcf-sand"></div>
+          </div>
+          <div class="gc-body">
+            <h3><span class="gc-ico">🎣</span> Fishtions</h3>
+            <p>Fish swim by with answers. Move the hook up or down to catch the fish with the correct answer.</p>
+            <div class="gc-tags"><span>↑ ↓ Move</span><span>❤ 5 lives</span></div>
+            <div class="gc-btnrow"><button class="btn btn-leaf gc-play" data-game="fish">▶ Play</button><button class="btn btn-outline gc-help" data-help-game="fish" aria-label="How to play">? How to play</button></div>
+          </div>
+        </article>
+
+        <!-- S-Frac: the real jungle arena in miniature -->
+        <article class="game-card gc-snake" data-card="snake">
+          <div class="gc-scene gcs-scene" aria-hidden="true">
+            <div class="gcs-bg"></div>
+            <div class="jg-fx"></div>
+            <div class="slot-pad gcs-pad p1"></div><div class="slot-pad gcs-pad p2"></div><div class="slot-pad gcs-pad p3"></div>
+            <div class="avocado-obj gcs-obj o1"></div><div class="avocado-obj gcs-obj o2"></div><div class="avocado-obj gcs-obj o3"></div>
+            <div class="gcs-snake"><span></span></div>
+            <span class="gcs-burst"></span>
+            <div class="gcs-q"></div>
+          </div>
+          <div class="gc-body">
+            <h3><span class="gc-ico">🐍</span> S-Frac</h3>
+            <p>Steer the snake to the fruit with the correct answer. Right answer: grow. Wrong answer: shrink.</p>
+            <div class="gc-tags"><span>← ↑ ↓ → Move</span><span>⏱ Timer</span></div>
+            <div class="gc-btnrow"><button class="btn btn-leaf gc-play" data-game="snake">▶ Play</button><button class="btn btn-outline gc-help" data-help-game="snake" aria-label="How to play">? How to play</button></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- =============== PLAY: choose difficulty =============== -->
+  <div class="screen difficulty-screen" id="screen-difficulty">
+    <div class="hub-world" aria-hidden="true"></div>
+    <button class="back-btn back-btn-floating" data-back="screen-play">← Back</button>
+    <div class="diff-center-wrap">
+      <div class="diff-panel">
+        <div class="diff-panel-icon">🥭</div>
+        <h2 id="diff-header">Choose Difficulty</h2>
+        <p class="diff-panel-sub">Each round has <b>10 questions</b>. Pick the level that feels right — you can always change it later.</p>
+        <button class="btn small btn-outline help-open" data-help-game-current="1">? How to play this game</button>
+        <div class="diff-grid">
+          <div class="diff-card diff-easy"><span class="diff-ico">🌱</span>EASY<small>Practice basic fraction problems.<em>⏱ 15 seconds per question</em></small>
+            <br><button class="btn small" data-diff="easy">Play</button></div>
+          <div class="diff-card diff-medium"><span class="diff-ico">🍊</span>MEDIUM<small>Solve slightly more challenging fraction problems.<em>⏱ 20 seconds per question</em></small>
+            <br><button class="btn small" data-diff="medium">Play</button></div>
+          <div class="diff-card diff-hard"><span class="diff-ico">🔥</span>HARD<small>Work with more complicated fraction calculations.<em>⏱ 25 seconds per question</em></small>
+            <br><button class="btn small" data-diff="hard">Play</button></div>
+          <div class="diff-card diff-insane"><span class="diff-ico">💀</span>INSANE<small>Test your fraction skills with the most challenging questions.<em>⏱ 30 seconds per question</em></small>
+            <br><button class="btn small" data-diff="insane">Play</button></div>
+        </div>
+        <p class="diff-panel-note">
+          Harder levels give you <b>more seconds</b> for each question, because the problems take longer to solve.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============== STORY MODE: LEVEL MAP =============== -->
+  <div class="screen" id="screen-story-map">
+    <div class="subscreen subscreen--map">
+      <div class="subscreen-header">
+        <button class="back-btn" data-back="screen-menu">← Back</button>
+        <h2>📖 The Fraction Chronicles</h2>
+        <button class="btn small help-open" data-help-game="story" style="margin-left:auto">? How it works</button>
+      </div>
+      <div class="story-status-row">
+        <div class="heart-badge" id="heart-badge-map">
+          <span id="heart-badge-icons-map"></span>
+          <small id="heart-badge-timer-map"></small>
+        </div>
+        <div class="coin-badge" style="position:static;">🪙 <span id="coin-count-map">0</span></div>
+        <button class="btn small" id="btn-story-journal" type="button">📜 Journal</button>
+        <nav class="story-timeline" id="story-timeline" aria-label="Journey through mathematical history"></nav>
+      </div>
+      <p class="story-intro-line">Long before schools and calculators, people needed a way to share things equally.
+        Journey through history below — each land you visit reveals the next piece of the story. Earn up to 3 stars ⭐ per level!</p>
+      <div class="story-map-scroll" id="story-map-scroll"></div>
+    </div>
+  </div>
+
+  <!-- =============== STORY MODE: DIALOGUE =============== -->
+  <div class="screen" id="screen-story-dialogue">
+    <div class="story-dialogue-bg" id="story-dialogue-bg" aria-hidden="true"></div>
+    <div class="subscreen">
+      <div class="subscreen-header">
+        <button class="back-btn" data-back="screen-story-map">← Back to Map</button>
+        <h2 id="story-dialogue-chapter-title">Chapter</h2>
+      </div>
+      <div class="story-dialogue-stage">
+        <div class="story-char-stage" id="story-dialogue-char"></div>
+        <div class="story-dialogue-card">
+          <div class="story-narrator">
+            <span class="story-narrator-icon" id="story-narrator-icon">📜</span>
+            <div>
+              <div class="story-narrator-name" id="story-narrator-name">Lola Mangga, the Storyteller</div>
+              <div class="story-level-tag" id="story-dialogue-level-tag">Level 1</div>
+            </div>
+          </div>
+          <p class="story-dialogue-text" id="story-dialogue-text">Loading story…</p>
+          <div class="menu-buttons" id="story-dialogue-actions">
+            <button class="btn btn-primary" id="btn-story-begin">▶ Begin Level</button>
+            <button class="btn btn-outline" data-back="screen-story-map">Not Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============== STORY MODE: MATCH-3 GAMEPLAY =============== -->
+  <div class="screen" id="screen-story-quiz">
+    <div class="story-game-bg" id="story-game-bg"></div>
+    <div class="game-hud">
+      <div class="hud-left">
+        <span id="story-hud-chapter">Chapter</span>
+        <span id="story-hud-level" style="color:var(--mango);">Level 1</span>
+      </div>
+      <div class="story-hud-stats" aria-label="Your status">
+        <span class="story-chip heartchip" title="Hearts"><span id="story-hearts-hearts"></span></span>
+        <span class="story-chip" title="Coins">🪙 <span id="story-hud-coins">0</span></span>
+        <span class="story-chip" title="EXP">⭐ Lv <span id="story-hud-lvl">1</span><span class="bar"><i id="story-hud-expbar"></i></span></span>
+      </div>
+      <button class="btn small help-btn" id="btn-help-story" aria-label="How to play">? Help</button>
+      <button class="btn small btn-outline" style="color:var(--paper);border-color:var(--paper);" id="btn-quit-story">Quit</button>
+    </div>
+    <div class="story-match-wrap">
+      <div class="story-char-corner" id="story-game-char"></div>
+      <div class="story-board-mount">
+        <div class="match3-board" id="match3-board"></div>
+        <div class="m3-goal" aria-hidden="true"></div>
+      </div>
+      <div class="story-task-panel">
+        <div class="task-frieze" aria-hidden="true"></div>
+        <div class="task-title"><span>📋 Task <span id="story-task-index">1</span> / <span id="story-task-total">10</span></span></div>
+        <div class="task-question" id="story-task-question">Loading question…</div>
+        <div class="task-legend-label">Match 3 fruits to clear a path. Guide the correct fraction to the bottom.</div>
+        <div class="task-legend task-fall-help" id="story-task-legend"><span>🍎 Swap fruit to match 3</span><span>⬇ Fractions drop as fruit clears</span><span>🎯 Correct one to the bottom</span></div>
+        <div class="task-progress">
+          <div class="task-score-row"><span>⭐ Correct answers (5 to pass)</span><b id="story-score-text">0 / 10</b></div>
+          <div class="task-star-icons" id="story-star-icons" aria-hidden="true">
+            <i class="sa-sti" style="left:50%"></i><i class="sa-sti" style="left:70%"></i><i class="sa-sti" style="left:90%"></i>
+          </div>
+          <div class="task-star-track">
+            <div class="task-star-fill" id="story-star-fill"></div>
+            <div class="task-star-marks" id="story-star-marks"><span class="mark3"></span></div>
+          </div>
+          <div class="task-dots" id="story-task-dots" aria-hidden="true"></div>
+        </div>
+        <div class="task-hint-row">
+          <button class="btn small" id="btn-story-hint" title="Makes the correct fraction glow">💡 Hint · 15 🪙</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============== GAME PLAY =============== -->
+  <div class="screen" id="screen-game">
+
+    <!-- Fraction Match: full-room classroom background — 4 AI classmates + you,
+         all seated at their desks, with the teacher watching from the front. -->
+    <div class="classroom-scene hidden" id="classroom-scene" aria-hidden="true">
+      <div class="cr-wall">
+        <div class="cr-clock">
+          <div class="cr-clock-face">
+            <div class="cr-hand cr-hand-h"></div>
+            <div class="cr-hand cr-hand-m"></div>
+            <div class="cr-hand cr-hand-s"></div>
+            <div class="cr-clock-pin"></div>
+          </div>
+        </div>
+        <div class="cr-board">
+          <div class="cr-board-frame">
+            <div class="cr-board-green">
+              <span class="cr-doodle cr-doodle-1">✦</span>
+              <span class="cr-doodle cr-doodle-2">∿∿</span>
+              <span class="cr-doodle cr-doodle-3">✧</span>
+            </div>
+          </div>
+          <span class="cr-chalk-stick"></span>
+          <span class="cr-eraser"></span>
+        </div>
+        <div class="cr-shelf-unit">
+          <div class="cr-shelf"><span class="cr-book b1"></span><span class="cr-book b2"></span><span class="cr-book b3"></span></div>
+          <div class="cr-shelf"><span class="cr-molecule"><i></i><i></i><i></i><i></i><i></i></span></div>
+          <div class="cr-shelf"><span class="cr-book b4"></span><span class="cr-book b5"></span></div>
+        </div>
+        <div class="cr-cabinet c1"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="cr-cabinet c2"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="cr-teacher-desk">
+          <span class="cr-globe"><i></i></span>
+          <span class="cr-desk-books"></span>
+        </div>
+        <div class="cr-teacher" id="cr-teacher">
+          <div class="t-head"><div class="t-face"></div></div>
+          <div class="t-body"></div>
+          <div class="t-arm t-arm-l"></div>
+          <div class="t-arm t-arm-r"></div>
+          <div class="t-pointer"></div>
+        </div>
+      </div>
+      <div class="cr-floor">
+        <div class="match-seats" id="match-seats"></div>
+      </div>
+    </div>
+
+    <div class="game-hud">
+      <div class="hud-left">
+        <span id="hud-game-name">Fraction Match</span>
+        <span id="hud-diff-name" style="color:var(--mango);">EASY</span>
+      </div>
+      <div class="progress-dots" id="progress-dots"></div>
+      <div class="timer-box" id="timer-box" title="Time left for this question"><span class="hud-ico" aria-hidden="true">⏱</span><span class="timer-text" id="timer-text"></span><div class="timer-wrap"><div class="timer-fill" id="timer-fill"></div></div></div>
+      <button class="btn small help-btn" id="btn-help-game" aria-label="How to play">? Help</button>
+      <button class="btn small btn-outline" style="color:var(--paper);border-color:var(--paper);" id="btn-quit-game">Quit</button>
+    </div>
+
+    <div class="game-body">
+      <div class="question-box" id="question-box">Loading question…</div>
+
+      <div class="answers-grid hidden" id="match-answers"></div>
+
+      <!-- Mango Falling UI — 2D cartoon scene rendered via canvas, published as
+           CSS custom properties (see initMangoArt); this markup just
+           hosts the physics-controlled farmer and falling mango elements.
+           Each falling mango's own artwork is generated on the fly in
+           renderMangoField() so it can be sized to the word it holds. -->
+      <div id="mango-field" class="game-field hidden">
+        <div class="farmer" id="mango-farmer">
+          <div class="f-sprite"></div>
+          <div class="f-shadow"></div>
+        </div>
+        <div class="control-hint">← → keys, or drag, to move the basket</div>
+      </div>
+
+      <!-- Fishtions UI: full-bleed canvas ocean + lightweight animated layers -->
+      <div id="fish-field" class="game-field hidden">
+        <div class="dn-sunlayer" id="dn-sunlayer"></div>
+        <div class="dn-sky" id="dn-sky"><div class="dn-stars" id="dn-stars"></div><div class="dn-sun" id="dn-sun"></div><div class="dn-moon" id="dn-moon"></div></div>
+        <div class="fish-cloud-layer" id="fish-clouds"></div>
+        <div class="gull-layer" id="fish-gulls"></div>
+        <div class="beach">
+          <div class="sand-shore"></div>
+          <div class="shore-foam"></div>
+          <div class="palm palm-1"><div class="trunk"></div><div class="fronds"><span></span><span></span><span></span><span></span></div></div>
+          <div class="palm palm-2"><div class="trunk"></div><div class="fronds"><span></span><span></span><span></span><span></span></div></div>
+          <div class="beach-rock r1"></div>
+          <div class="beach-rock r2"></div>
+        </div>
+        <div class="water-surface"></div>
+        <div class="caustics"></div>
+        <div class="bg-fish-layer" id="fish-bg-fish"></div>
+        <div class="bubble-layer" id="fish-bubbles"></div>
+        <div class="seaweed-layer">
+          <span class="weed w1"></span><span class="weed w2"></span><span class="weed w3"></span><span class="weed w4"></span>
+          <span class="coral c1"></span><span class="coral c2"></span><span class="coral c3"></span>
+          <span class="rock r1"></span><span class="rock r2"></span>
+        </div>
+        <div class="dn-tint" id="dn-tint"></div>
+        <div class="dn-lights" id="dn-lights"></div>
+        <div class="lane-lines" id="fish-lanes"></div>
+        <div class="fisherman" id="fisherman">
+          <div class="fisher-sprite"></div>
+          <div class="boat-foam"></div>
+          <div class="rod" id="fish-rod"></div>
+          <div class="fish-line" id="fish-line"></div>
+          <div class="hook" id="fish-hook"></div>
+        </div>
+        <div class="splash-layer" id="fish-splash"></div>
+        <div class="control-hint">↑ ↓ keys, or drag, to move the hook</div>
+      </div>
+
+      <!-- S-Frac UI -->
+      <div id="snake-field" class="game-field hidden">
+        <canvas id="snake-bg"></canvas>
+        <div class="jg-fx" id="jg-fx"></div>
+        <div class="leaf-layer" id="snake-leaves"></div>
+        <div class="lane-lines" id="snake-lanes"></div>
+        <div class="snake" id="the-snake"><canvas id="snake-canvas"></canvas></div>
+        <div class="control-hint">Arrow keys, or drag, to steer the snake</div>
+      </div>
+
+      <div id="snake-ending" class="hidden">
+        <div class="ending-fx" id="ending-fx"></div>
+        <div class="ending-card">
+          <h2 id="ending-title"></h2>
+          <p id="ending-sub">Final Score: <span id="ending-score"></span> / 10</p>
+          <p class="ending-continue">Tap anywhere to continue</p>
+        </div>
+      </div>
+
+      <div class="lives-row hidden" id="lives-row">
+        <span class="lives-label">❤ Lives (wrong catch = −1):</span>
+        <span id="lives-hearts"></span>
+      </div>
+
+      <div class="hint-row">
+        <button class="btn small" id="btn-hint" title="Removes 2 wrong answers">💡 Hint · 15 🪙</button><span class="hint-note">Removes 2 wrong answers</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============== RESULTS =============== -->
+  <div class="screen" id="screen-results">
+    <div class="game-body" style="height:100%;">
+      <div class="result-card">
+        <h2>🥭 Round Complete!</h2>
+        <p class="result-stat">Score: <b id="res-score">0 / 10</b></p>
+        <p class="result-stat">EXP earned: <b id="res-exp">0</b></p>
+        <p class="result-stat">Coins earned: <b id="res-coins">0</b></p>
+
+        <div class="match-leaderboard hidden" id="match-leaderboard">
+          <h3>🏆 Classroom Leaderboard</h3>
+          <div id="match-leaderboard-rows"></div>
+          <p class="lb-summary" id="match-leaderboard-summary"></p>
+        </div>
+
+        <div class="menu-buttons" style="margin-top:18px;">
+          <button class="btn btn-primary" id="btn-play-again">Play Again</button>
+          <button class="btn" id="btn-change-diff">Change Difficulty</button>
+          <button class="btn btn-outline" data-back="screen-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============== MECHANICS =============== -->
+  <div class="screen" id="screen-mechanics">
+    <div class="subscreen">
+      <div class="subscreen-header">
+        <button class="back-btn" data-back="screen-menu">← Back</button>
+        <h2>❓ How to Play</h2>
+      </div>
+      <div id="help-hub"></div>
+    </div>
+  </div>
+
+  <!-- =============== KNOWLEDGE =============== -->
+  <div class="screen" id="screen-knowledge">
+    <div class="subscreen">
+      <div class="subscreen-header">
+        <button class="back-btn" data-back="screen-menu">← Back</button>
+        <h2>📘 Knowledge Grove</h2>
+      </div>
+
+      <div class="card-panel">
+        <h3>What is a Fraction?</h3>
+        <p>A <b>fraction</b> represents a part of a whole. In scientific (standard mathematical) form it is
+        written as a vertical ratio of two integers:</p>
+        <div class="formula-row" id="def-frac-formula"></div>
+        <p>Here <b>a</b> is the <b>numerator</b> — how many parts you have — and <b>b</b> is the
+        <b>denominator</b> — how many equal parts the whole was split into (b can never be zero).</p>
+      </div>
+
+      <div class="card-panel">
+        <h3>Why Fractions Matter</h3>
+        <ul class="importance-list">
+          <li><b>Everyday measuring:</b> recipes (¾ cup sugar), tools (½ inch bolt), and portions all rely on fractions.</li>
+          <li><b>Money & time:</b> "a quarter" of a peso, half an hour, ⅓ of a work shift.</li>
+          <li><b>Science & construction:</b> precise measurements, scale models, and blueprints use fractional units.</li>
+          <li><b>Foundation for algebra:</b> ratios, rates, probability, and equations all build on fraction skills.</li>
+          <li><b>Fair sharing:</b> splitting a mango pie evenly between friends is a fraction problem in disguise!</li>
+        </ul>
+      </div>
+
+      <h3 style="color:var(--paper);margin:24px 0 10px;">🔍 The 12 Types of Fractions</h3>
+      <p style="color:var(--chalk);font-size:13.5px;max-width:640px;margin:-4px 0 16px;">
+        Each card below shows the formula in scientific (stacked) notation, a visual model, and the
+        step-by-step process for identifying or working with that type.
+      </p>
+      <div class="type-grid" id="type-grid"><!-- populated by script.js --></div>
+
+      <div class="card-panel" style="margin-top:22px;">
+        <h3>Bonus Process: Adding Dissimilar (Unlike) Fractions</h3>
+        <div class="step">1. Find the Least Common Denominator (LCD) of both fractions.</div>
+        <div class="step">2. Convert each fraction into an equivalent fraction using the LCD.</div>
+        <div class="step">3. Add the numerators and keep the common denominator.</div>
+        <div class="step">4. Simplify the result if it's reducible. Example: 1/3 + 1/4 → LCD 12 → 4/12 + 3/12 = 7/12.</div>
+      </div>
+
+      <div class="card-panel">
+        <h3>🥭 Real-Life Practice Questions</h3>
+        <p style="color:#5b5443;font-size:13.5px;margin-top:-4px;">Worked examples using everyday, situational problems — the same style you'll see in Fraction Match and Mango Falling.</p>
+
+        <div class="practice-q">
+          <p class="pq-question">Q1. Wilson ate 3/8 of a mango pie, then later ate another 2/8. How much of the pie did he eat in total?</p>
+          <div class="step">Same denominator → these are like fractions, so add the numerators directly: 3/8 + 2/8 = 5/8.</div>
+          <p class="pq-answer">Answer: 5/8 of the pie.</p>
+        </div>
+
+        <div class="practice-q">
+          <p class="pq-question">Q2. A vendor had 3/4 kg of mangoes and sold 1/3 kg to Kuya Ben. How many kilograms are left?</p>
+          <div class="step">These are unlike fractions (denominators 4 and 3) → LCD is 12 → 9/12 − 4/12 = 5/12.</div>
+          <p class="pq-answer">Answer: 5/12 kg left.</p>
+        </div>
+
+        <div class="practice-q">
+          <p class="pq-question">Q3. The class collected ₱45 out of a ₱100 goal for a mango-tree planting project. What decimal portion of the goal is that?</p>
+          <div class="step">45/100 has a denominator that's a power of 10 → shift the decimal point 2 places: 45/100 = 0.45.</div>
+          <p class="pq-answer">Answer: 0.45 (45% of the goal).</p>
+        </div>
+
+        <div class="practice-q">
+          <p class="pq-question">Q4. A tailor needs a ribbon that measures 11/4 meters. Write this length as a mixed number.</p>
+          <div class="step">Divide: 11 ÷ 4 = 2 remainder 3 → whole number 2, remainder becomes the new numerator over the same denominator.</div>
+          <p class="pq-answer">Answer: 2 ¾ meters.</p>
+        </div>
+
+        <div class="practice-q">
+          <p class="pq-question">Q5. Rusty collected 2/5 of a basket of mangoes and Nena collected 3/5. Whose share is bigger, and by how much?</p>
+          <div class="step">Same denominator, so just compare numerators: 3 &gt; 2 → Nena's share is bigger. Difference: 3/5 − 2/5 = 1/5.</div>
+          <p class="pq-answer">Answer: Nena's share is bigger by 1/5.</p>
+        </div>
+
+        <div class="practice-q">
+          <p class="pq-question">Q6. A garden plot is divided into 12 equal rows; 8 rows are planted with mangoes. Simplify the fraction of rows planted.</p>
+          <div class="step">GCF of 8 and 12 is 4 → divide both numerator and denominator by 4: 8/12 → 2/3.</div>
+          <p class="pq-answer">Answer: 2/3 of the rows (a reducible fraction, now in lowest terms).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============== CREDITS =============== -->
+  <div class="screen" id="screen-credits">
+    <div class="subscreen">
+      <div class="subscreen-header">
+        <button class="back-btn" data-back="screen-menu">← Back</button>
+        <h2>✦ Credits</h2>
+      </div>
+      <div class="card-panel" style="text-align:center;">
+        <p style="margin-top:0;color:#5b5443;font-weight:700;">FracDash: A Mango Grove Fraction Adventure was made by</p>
+        <div class="credit-name">🥭 WILSON JAMES MANZANA</div>
+        <div class="credit-name">🥭 LORRAINE VIA ROSAS</div>
+        <div class="credit-name">🥭 RUSTY SHANE LOPEZ</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- =============== HELP / HOW TO PLAY MODAL =============== -->
+<div class="modal-overlay hidden" id="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
+  <div class="modal-box help-box">
+    <div id="help-modal-body"></div>
+    <div class="help-actions">
+      <button class="btn small btn-outline" id="btn-help-tutorial">▶ Try the tutorial</button>
+      <button class="btn btn-primary" id="btn-help-close">Got it!</button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== FIRST-TIME TUTORIAL =============== -->
+<div class="modal-overlay hidden" id="tutorial-modal" role="dialog" aria-modal="true" aria-labelledby="tut-title">
+  <div class="modal-box tut-box">
+    <div class="tut-top"><span class="tut-step" id="tut-step"></span><button class="tut-skip" id="btn-tut-skip">Skip tutorial ✕</button></div>
+    <div class="tut-dots" id="tut-dots" aria-hidden="true"></div>
+    <div id="tut-body"></div>
+    <div class="help-actions">
+      <button class="btn small btn-outline" id="btn-tut-back">← Back</button>
+      <button class="btn btn-primary" id="btn-tut-next">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== STREAK MODAL =============== -->
+<div class="modal-overlay hidden" id="streak-modal">
+  <div class="modal-box">
+    <div class="streak-flame">🔥</div>
+    <h2 id="streak-title">Day 1 Streak!</h2>
+    <p id="streak-sub" style="color:#5b5443;font-weight:700;">Answer today's questions to keep your streak going. Take your time!</p>
+    <div id="streak-question-area"></div>
+  </div>
+</div>
+
+<!-- =============== LEVEL UP MODAL =============== -->
+<div class="modal-overlay hidden" id="levelup-modal">
+  <div class="modal-box">
+    <div class="streak-flame">🌟</div>
+    <h2>Level Up!</h2>
+    <p id="levelup-text" style="font-weight:700;color:#5b5443;">You reached level 2!</p>
+    <button class="btn btn-primary" id="btn-levelup-close">Nice!</button>
+  </div>
+</div>
+
+<!-- =============== STORY LEVEL RESULT MODAL =============== -->
+<div class="modal-overlay hidden" id="story-result-modal">
+  <div class="modal-box" id="story-result-box">
+    <div class="sa-confetti" id="story-confetti" aria-hidden="true"></div>
+    <div class="streak-flame" id="story-result-icon">⭐</div>
+    <h2 id="story-result-title">Level Complete!</h2>
+    <div class="story-result-stars" id="story-result-stars"></div>
+    <p id="story-result-sub" style="font-weight:700;color:#5b5443;">Score: 0/10</p>
+    <p id="story-result-reward" style="font-weight:700;color:var(--pine);"></p>
+    <div id="story-result-extra"></div>
+    <div class="menu-buttons">
+      <button class="btn btn-primary" id="btn-story-next">Next Level ▶</button>
+      <button class="btn" id="btn-story-retry">Retry Level</button>
+      <button class="btn btn-outline" id="btn-story-tomap">Back to Map</button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== STORY QUIT CONFIRMATION =============== -->
+<div class="modal-overlay hidden" id="story-quit-modal" role="dialog" aria-modal="true" aria-labelledby="story-quit-title">
+  <div class="modal-box">
+    <h2 id="story-quit-title">Leave this level?</h2>
+    <p style="font-weight:700;">Your progress in this level will be lost, but you won't lose a heart.</p>
+    <div class="menu-buttons">
+      <button class="btn btn-primary" id="btn-story-quit-stay" type="button">Keep Playing</button>
+      <button class="btn btn-outline" id="btn-story-quit-leave" type="button">Back to Map</button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== NO HEARTS MODAL =============== -->
+<div class="modal-overlay hidden" id="no-hearts-modal">
+  <div class="modal-box">
+    <div class="streak-flame">💔</div>
+    <h2>Out of Hearts!</h2>
+    <p style="font-weight:700;color:#5b5443;">You've used all 5 hearts. A new heart grows back every 15 minutes.</p>
+    <p style="font-weight:800;color:var(--mango-deep);font-size:20px;" id="no-hearts-timer">15:00</p>
+    <div class="menu-buttons">
+      <button class="btn btn-primary" id="btn-no-hearts-ok">Okay</button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== EXIT MODAL =============== -->
+<div class="modal-overlay hidden" id="exit-modal">
+  <div class="modal-box">
+    <div class="streak-flame">🥭</div>
+    <h2>Leaving so soon?</h2>
+    <p style="font-weight:700;color:#5b5443;">Your progress is saved automatically. See you tomorrow for your streak!</p>
+    <div class="menu-buttons">
+      <button class="btn btn-danger" id="btn-exit-confirm">Exit Game</button>
+      <button class="btn btn-outline" id="btn-exit-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== QUIT CONFIRMATION (in-game Quit button) =============== -->
+<div class="modal-overlay quit-overlay hidden" id="quit-modal" role="dialog" aria-modal="true" aria-labelledby="quit-title" aria-describedby="quit-desc" data-theme="mango">
+  <div class="quit-panel">
+    <div class="quit-banner" id="quit-banner">
+      <div class="quit-deco" aria-hidden="true"><span class="qd qd1"></span><span class="qd qd2"></span><span class="qd qd3"></span><span class="qd qd4"></span></div>
+      <span class="quit-emblem" id="quit-emblem" aria-hidden="true">🥭</span>
+    </div>
+    <div class="quit-icon" id="quit-icon" aria-hidden="true">🚪</div>
+    <h2 id="quit-title">Are You Sure You Want to Quit?</h2>
+    <p class="quit-desc" id="quit-desc">Your current progress may be lost if you leave this game.</p>
+    <p class="quit-game-tag" id="quit-game-tag"></p>
+    <div class="quit-actions">
+      <button class="btn btn-leaf quit-continue" id="btn-quit-continue" type="button">▶ Continue Playing</button>
+      <button class="btn btn-danger quit-confirm" id="btn-quit-confirm" type="button">🚪 Quit Game</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
